@@ -1,0 +1,6 @@
+gem "rspec"
+
+#to debug the code
+gem 'pry'
+gem 'pry-nav'
+gem 'pry-doc'
