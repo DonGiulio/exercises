@@ -21,7 +21,7 @@ Your implementation should be production quality. Use any tools, practices, reso
 The time at which you started this test has been recorded. You have 2 hours to complete the test. We do not accept late submissions so please ensure you observe the time and send what you have completed at the end of 2 hours, even if incomplete.
 
     interface AnagramGame {
-
+    
        /**
         * Submit a word on behalf of a user. A word is accepted if its letters are
         * contained in the original string submitted in the constructor, and if it
@@ -36,7 +36,7 @@ The time at which you started this test has been recorded. You have 2 hours to c
         *             characters.
         */
        submitWord(string word);
-
+     
        /**
         * Return word entry at given position in the high score list, 0 being the
         * highest (best score) and 9 the lowest. You may assume that this method
@@ -47,7 +47,7 @@ The time at which you started this test has been recorded. You have 2 hours to c
         *         there is no entry at that position
         */
        string getWordEntryAtPosition(integer position);
-
+      
        /**
         * Return score at given position in the high score list, 0 being the
         * highest (best score) and 9 the lowest. You may assume that this method
@@ -62,7 +62,7 @@ The time at which you started this test has been recorded. You have 2 hours to c
 
 
 
-== Running the tests
+# Running the tests
 
 Steps to get the solution up and running:
 
@@ -72,8 +72,8 @@ Steps to get the solution up and running:
     bin/rspec
 4. expected output: 
 
-    % rspec
-    .....
-
-    Finished in 4.78 seconds (files took 0.17653 seconds to load)
-    5 examples, 0 failures
+        % rspec
+        .....
+        
+        Finished in 4.78 seconds (files took 0.17653 seconds to load)
+        5 examples, 0 failures
