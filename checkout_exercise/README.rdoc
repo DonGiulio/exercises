@@ -1,0 +1,19 @@
+# The exercise
+The exercise is described in the file `RubyTest.pdf`, attached
+
+# Running the tests
+
+Steps to get the solution up and running:
+
+1. unzip the file and cd to the newly created directory
+2. run the 'bundle install --binstubs' command to install rspec and its executable bin
+3. to run the tests run the command: 
+    bin/rspec
+4. expected output: 
+
+        % bin/rspec
+        ......
+        
+        Finished in 0.00264 seconds (files took 0.17258 seconds to load)
+        6 examples, 0 failures
+
