@@ -1,5 +1,7 @@
 class Checkout
   
+  attr_accessor :products, :promotional_rules
+  
   def initialize(promotional_rules = [])
     @promotional_rules = promotional_rules
     @products = []
@@ -10,9 +12,8 @@ class Checkout
   end
   
   def total
-    total = 0.0
-    @products.each { |product| total += product.price }
-    @promotional_rules.each { |rule| total = rule.new_total(total, @products) }
-    total.round(2).to_f
+    total = products.inject(0.0) { |sum, product| sum + product.price }
+    total = promotional_rules.inject(total) { |total, rule| rule.new_total(total, products) }
+    total.round(2)
   end
 end

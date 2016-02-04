@@ -1,15 +1,23 @@
 require './app/app.rb'
 
 RSpec.describe Product do
-  it "generates a Product" do
-    product = Product.new({product_code: "001", name: "Lavender heart", price: 9.25})
-    expect(product.product_code).to eq "001"
-    expect(product.name).to eq "Lavender heart"
-    expect(product.price).to be 9.25
-  end
   
-  it "raises error if not all values are specified" do
-    expect{ Product.new( {name: "Lavender heart", price: 9.25} ) }.to raise_error
-  end
+  describe "constructor" do 
+    context "correct data" do 
+      let(:attributes) { {product_code: "FR1", name: "Fruit tea", price: 3.11} }
+      subject { Product.new(attributes) }
+  
+      it { expect(subject.product_code).to eq "FR1" }
+      it { expect(subject.name).to eq "Fruit tea" }
+      it { expect(subject.price).to be 3.11 }
+    end
+    
+    context "missing parameters" do
+      let(:incomplete_attributes) { {name: "Lavender heart", price: 9.25} }
 
+      it do
+        expect{ Product.new(incomplete_attributes) }.to raise_error ArgumentError
+      end
+    end
+  end
 end
