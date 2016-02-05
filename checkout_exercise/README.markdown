@@ -31,6 +31,19 @@ Here are some test data:
     Basket: AP1, AP1, FR1, AP1
     Total price expected: $16.61
 
+# Note
+
+this exercise is a mix up between two similar exercises, one requiring 
+
+- buy one and get one free
+- multiple buy
+
+and the other requiring 
+
+- multiple buy 
+- discount on total 
+
+both exercises have been merged here, and the corresponding spec tests are merged together into `spec/checkout/checkout_spec.rb`
 
 # Running the tests
 
