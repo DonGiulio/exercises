@@ -1,48 +1,45 @@
 require './app/app.rb'
-require 'pry'
+
 RSpec.describe AnagramGame do
-  before(:each) do
-    @game = AnagramGame.new("areallylongword".split(""), "wordlist.txt")
-  end
+  let(:game) { AnagramGame.new("areallylongword".split(""), "wordlist.txt") }
   
-  describe "submit_word" do
-    it "returns true if the word is in the dictionary" do
-      words = %w"no grow woolly"
-      words.each do |w|
-        expect(@game.submit_word(w)).to be(true), "#{w} not found"
-      end
+  describe '#submit_word' do
+    context "with a real word" do 
+      let(:words) { %w"no grow woolly" }
+      it { expect( words.map { |w| game.submit_word(w) } ).to all eq true }
     end
-  
-    it "returns false if the word is not in the dictionary" do
-      words = %w"bold glly adder"
-      words.each do |w|
-        expect(@game.submit_word(w)).to be(false),  "#{w} found"
-      end
+
+    context "with invalid words" do
+      let(:words) { %w"bold glly adder" }
+      it { expect( words.map { |w| game.submit_word(w) } ).to all eq false }
     end
   end
   
-  describe "top_scoring_words" do
+  describe '#top_scoring_words' do
+    subject { game.top_scoring_words }
     it "returns a list of the top scoring words" do 
-      list = @game.top_scoring_words
-      expect(list.length).to be 10
-      list.each do |w|
-        expect(@game.submit_word(w)).to be(true), "top word #{w}, wasn't allowed"
-      end
+      expect(subject.length).to be 10
+      expect(subject).to be_an Array
+      expect(subject.map { |w| game.submit_word(w) } ).to all eq true
     end
   end
 
-  describe "get_points" do
-    it "verifies that a word is valid and returns its points" do
-      list = @game.top_scoring_words
-      list.each do |w|
-        expect(@game.get_points(w)).to be w.length
+  describe '#get_points' do
+    
+    context "for high scoring words" do 
+      let(:words) { game.top_scoring_words }
+
+      it "verifies that a word is valid and returns its points" do
+        words.map do |w|
+          expect( game.get_points(w) ).to eq w.length
+        end
       end
     end
     
-    it "returns nil for a word without points" do
-      words = %w"bold glly adder"
-      words.each do |w|
-        expect(@game.get_points(w)).to be(nil),  "#{w} should not have points"
+    context "for a word with no score" do
+      let(:words) { %w"bold glly adder" } 
+      it "returns nil for a word without points" do
+        expect( words.map { |w| game.get_points(w) } ).to all eq nil
       end
     end
   end
