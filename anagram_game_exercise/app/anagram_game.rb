@@ -4,7 +4,6 @@ class AnagramGame
   def initialize(letters, dictionary)
     @dictionary = prepare_dictionary dictionary, letters.length
     @letters = letters
-    @top_words = []
   end
   
   # returns true if the word is valid
@@ -18,16 +17,11 @@ class AnagramGame
   # returns a list of length NUMBER_OF_WORDS_TO_FIND with the top scoring words
   ## that satisfy the game's rules
   def top_scoring_words
-    results = []
-    found = 0
-    @dictionary.each do |cur_word|
-      break if found >= WORDS_TO_FIND
-      if letters_present_for cur_word
-        results << cur_word
-        found += 1
-      end
+    return @dictionary.inject([]) do |words_found, cur_word|
+      return words_found if words_found.length >= WORDS_TO_FIND
+      words_found << cur_word if letters_present_for cur_word
+      words_found
     end
-    return results
   end
   
   # returns the number of points for the word in the current game
@@ -37,7 +31,7 @@ class AnagramGame
     word.length
   end
 
-private 
+  private
 
   #reads the dictionary file, deletes the impossible strings and sorts by length
   def prepare_dictionary(dictionary, length)
