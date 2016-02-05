@@ -1,13 +1,8 @@
 class AnagramGame
-  NUMBER_OF_WORDS_TO_FIND = 10
+  WORDS_TO_FIND = 10
   
   def initialize(letters, dictionary)
-    @dictionary = IO.readlines(dictionary)
-    #remove endlines and sort the dictionary longest to shortes words
-    @dictionary = @dictionary.map(&:chop).sort {|x,y| y.length <=> x.length}
-    #all words that are longer than the list of letters are invalid. 
-    @dictionary = @dictionary.delete_if {|word| word.length > letters.length}
-
+    @dictionary = prepare_dictionary dictionary, letters.length
     @letters = letters
     @top_words = []
   end
@@ -17,8 +12,7 @@ class AnagramGame
   # checks if a word is valid for the game, 
   # it's valid if it's present in the dictionary and its letters are in the list. 
   def submit_word(word)
-    return false unless @dictionary.include? word
-    check_letters (word)
+    letters_present_for(word) && @dictionary.include?(word)
   end
   
   # returns a list of length NUMBER_OF_WORDS_TO_FIND with the top scoring words
@@ -27,8 +21,8 @@ class AnagramGame
     results = []
     found = 0
     @dictionary.each do |cur_word|
-      break if found >= NUMBER_OF_WORDS_TO_FIND
-      if check_letters cur_word
+      break if found >= WORDS_TO_FIND
+      if letters_present_for cur_word
         results << cur_word
         found += 1
       end
@@ -44,13 +38,20 @@ class AnagramGame
   end
 
 private 
- def check_letters(word)
-   word_letters = word.split ""
-   cur_letters = @letters.clone
-   word_letters.each do |l|
-     return false unless cur_letters.include? l
-     cur_letters.delete_at(cur_letters.index(l) || cur_letters.length)
-   end
-   return true
- end  
+
+  #reads the dictionary file, deletes the impossible strings and sorts by length
+  def prepare_dictionary(dictionary, length)
+    result = IO.readlines(dictionary).map(&:chop)
+    result.delete_if {|word| word.length > length}
+    result.sort! {|x,y| y.length <=> x.length}
+  end
+
+  def letters_present_for(word)
+    cur_letters = @letters.clone
+    word.split("").each do |letter|
+      return false unless cur_letters.include? letter
+      cur_letters.delete_at(cur_letters.index(letter))
+    end
+    return true
+  end  
 end

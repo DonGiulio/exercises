@@ -6,9 +6,9 @@ The game is constructed with a random set of base letters a to z, e.g. the strin
 
 * "no" is an acceptable submission, with score 2
 * "grow" is an acceptable submission, with score 4
+* "woolly" is an acceptable submission with score 6
 * "bold" is not an acceptable submission
 * "glly" is not an acceptable submission
-* "woolly" is an acceptable submission with score 6
 * "adder" is not an acceptable submission
 
 The game should maintain in memory a list of the top ten highest-scoring submissions (word and score). 
