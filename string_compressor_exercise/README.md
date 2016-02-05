@@ -5,8 +5,6 @@ The goal of this exercise is to implement a string compression / decompression a
 
 The compression should be so that it satisfies the spec tests given. 
 
-The exercise uses Ruby 1.9.3 and Rspec 2.6.0
-
 ## Note
 The original exercise had fewer testcases and had hidden extra checks for some edge cases, I deduced these extra edge cases and wrote explicit tests for these. 
 

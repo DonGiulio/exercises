@@ -1,35 +1,36 @@
 require 'spec_helper'
+require "./app/compress"
 
 describe Compressor do
 
   describe '#compress' do
 
-    it { subject.compress(nil).should eq "" }
-    it { subject.compress('').should eq '' } 
-    it { subject.compress("a").should eq "a" } 
-    it { subject.compress("aa").should eq "aa" } 
-    it { subject.compress("aaa").should eq "a3" } 
-    it { subject.compress('describe').should eq 'describe' } 
-    it { subject.compress('aaa').should eq 'a3' } 
-    it { subject.compress('aaabbccc').should eq 'a3bbc3' }
-    it { subject.compress('abbbbccc').should eq 'ab4c3' }
+    it { expect( subject.compress(nil) ).to eq "" }
+    it { expect( subject.compress('') ).to eq '' } 
+    it { expect( subject.compress("a") ).to eq "a" } 
+    it { expect( subject.compress("aa") ).to eq "aa" } 
+    it { expect( subject.compress("aaa") ).to eq "a3" } 
+    it { expect( subject.compress('describe') ).to eq 'describe' } 
+    it { expect( subject.compress('aaa') ).to eq 'a3' } 
+    it { expect( subject.compress('aaabbccc') ).to eq 'a3bbc3' }
+    it { expect( subject.compress('abbbbccc') ).to eq 'ab4c3' }
   end
 
   describe '#decompress' do
   
-    it { subject.decompress('a3').should eq 'aaa' }
-    it { subject.decompress('a3bbc3').should eq 'aaabbccc' }
-    it { subject.decompress('a11b').should eq 'aaaaaaaaaaab' }
-    it { subject.decompress('describe').should eq "describe" }
-    it { subject.decompress('ab4c3').should eq 'abbbbccc' }
-    it { subject.decompress('a').should eq "a" }
-    it { subject.decompress('a3b').should eq "aaab" }
-    it { subject.decompress('a1').should eq "a" }
-    it { subject.decompress('a2').should eq "aa" }
-    it { subject.decompress('a3').should eq "aaa" }
-    it { subject.decompress(nil).should eq "" }
-    it { subject.decompress("").should eq "" }
-    it { subject.decompress("3a5").should eq "aaaaa" }
+    it { expect( subject.decompress('a3') ).to eq 'aaa' }
+    it { expect( subject.decompress('a3bbc3') ).to eq 'aaabbccc' }
+    it { expect( subject.decompress('a11b') ).to eq 'aaaaaaaaaaab' }
+    it { expect( subject.decompress('describe') ).to eq "describe" }
+    it { expect( subject.decompress('ab4c3') ).to eq 'abbbbccc' }
+    it { expect( subject.decompress('a') ).to eq "a" }
+    it { expect( subject.decompress('a3b') ).to eq "aaab" }
+    it { expect( subject.decompress('a1') ).to eq "a" }
+    it { expect( subject.decompress('a2') ).to eq "aa" }
+    it { expect( subject.decompress('a3') ).to eq "aaa" }
+    it { expect( subject.decompress(nil) ).to eq "" }
+    it { expect( subject.decompress("") ).to eq "" }
+    it { expect( subject.decompress("3a5") ).to eq "aaaaa" }
   end
   
 end
