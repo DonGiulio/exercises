@@ -1,40 +1,42 @@
 require "rails_helper"
 
 RSpec.describe VenueReport, :type => :feature do
-  before(:each) do
-    @venues = create_list :venue, 5
-  end
-  
-  it "Generates a new report" do
-    initial_date = 3.days.ago
-    final_date = 2.days.ago
-    reporter = VenueReport.new(initial_date, final_date)
-    report = reporter.generate
-    
-    expect(report.class).to be Array
-    expect(report.size).to be @venues.size
-    expect(report.first.class).to be VenueRow
-  end
-  
-  it "accepts dates as string" do
-    initial_date = 3.days.ago.to_s
-    final_date = 2.days.ago.to_s
-    reporter = VenueReport.new(initial_date, final_date)
-    report = reporter.generate
-    
-    expect(report.class).to be Array
-    expect(report.size).to be @venues.size
-    expect(report.first.class).to be VenueRow
-  end
-  
-  it "generates reports that are sorted" do
-    initial_date = 3.days.ago.to_s
-    final_date = 2.days.ago.to_s
-    reporter = VenueReport.new(initial_date, final_date)
-    report = reporter.generate
+  let!(:venues) { create_list :venue, 5 } 
+  let(:reporter) { VenueReport.new(initial_date, final_date) }
 
-    check = report.dup
-    expect(check.sort_by! {|o| o.value}.reverse).to eq report
+  describe '#generate' do
+    subject {reporter.generate}
+    
+    context "date objects" do
+      let(:initial_date) { 3.days.ago}
+      let(:final_date) { 2.days.ago}
+          
+      it "Generates a new report" do
+        expect(subject).to be_an Array
+        expect(subject.size).to eq venues.size
+        expect(subject).to all be_a VenueRow
+      end
+      
+      it "the reports are sorted" do
+        check = subject.dup.sort_by! {|o| o.value}.reverse
+        expect(check).to eq subject
+      end
+    end
+    
+    context "string dates" do
+      let(:initial_date) { 3.days.ago.to_s}
+      let(:final_date) { 2.days.ago.to_s}
+
+      it "generates a new report" do
+        expect(subject).to be_an Array
+        expect(subject.size).to eq venues.size
+        expect(subject).to all be_a VenueRow
+      end
+      
+      it "the reports are sorted" do
+        check = subject.dup.sort_by! {|o| o.value}.reverse
+        expect(check).to eq subject
+      end
+    end    
   end
-  
 end

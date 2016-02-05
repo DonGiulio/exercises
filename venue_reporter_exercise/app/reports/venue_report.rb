@@ -1,14 +1,3 @@
-class VenueRow
-  attr_reader :name, :transactions, :value
-  
-  def initialize (attributes)
-    @name = attributes[:name]
-    @transactions = attributes[:transactions]
-    @value = attributes[:value]
-  end
-end
-
-
 class VenueReport
   
   # Initialises the report, the parameters can be either +DateTime+ or +String+

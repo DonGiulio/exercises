@@ -67,9 +67,10 @@ Steps to get the solution up and running:
 
 1. unzip the file and cd to the newly created directory
 2. run the 'bundle install --binstubs' command to install rspec and its executable bin
-3. to run the tests run the command: 
+3. rake db:create db:migrate
+4. to run the tests run the command: 
     bin/rspec
-4. expected output: 
+5. expected output: 
 
      % rspec
      .........

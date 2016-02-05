@@ -4,15 +4,14 @@ class Compressor
     return "" if uncompressed.nil? || uncompressed.empty?
     last = uncompressed[0]
     count = 0
-    result = ""
-    uncompressed.split("").each do |char|
+    result = uncompressed.split("").inject("") do |result, char|
       if char == last
         count += 1
       else
         result << do_compress(last, count)
-        last = char
-        count = 1
+        last = char and count = 1
       end
+      result
     end
     result << do_compress(last, count)
   end
@@ -21,15 +20,12 @@ class Compressor
     return "" unless compressed
     
     compressed.split(/(\d+)/).inject("") do |memo, char|
-      unless numeric? char
-        memo << char
+      if numeric? char
+        memo << do_uncompress(memo[-1], (Integer(char)-1)) unless memo.empty?
       else
-        unless memo.empty?
-          memo << do_uncompress(memo[-1], (Integer(char)-1))
-        else 
-          memo
-        end
+        memo << char
       end
+      memo
     end
   end
 
