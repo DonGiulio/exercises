@@ -17,10 +17,26 @@ RSpec.describe AnagramGame do
   
   describe '#top_scoring_words' do
     subject { game.top_scoring_words }
+    let(:expected_words) {
+      [
+        "allowedly",
+        "wrongdoer",
+        "lowlander",
+        "logroller",
+        "logrolled",
+        "earlywood",
+        "laryngeal",
+        "rollaway",
+        "orangery",
+        "narrowly"
+      ]
+    }
     it "returns a list of the top scoring words" do 
       expect(subject.length).to be 10
       expect(subject).to be_an Array
       expect(subject.map { |w| game.submit_word(w) } ).to all eq true
+      expect(subject.map { |w| expected_words.include? w}).to all eq true
+      expect(subject.inject(0) {|sum, word| sum + game.get_points(word) }).to eq 87
     end
   end
 
