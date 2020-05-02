@@ -37,7 +37,7 @@ class AnagramGame
   def prepare_dictionary(dictionary, length)
     result = IO.readlines(dictionary).map(&:chop)
     result.delete_if {|word| word.length > length}
-    result.sort! {|x,y| y.length <=> x.length}
+    result.sort_by!(&:length).reverse!
   end
 
   def letters_present_for(word)
