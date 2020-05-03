@@ -49,7 +49,7 @@ Here's the existing model classes:
 The reporting class should have a public method results which returns an ordered array of VenueRows, with highest value first.
 
 == Brief explanation
-The test is implemented in a Rails 4 project, because of the requirement of using the +ActiveRecord+, Rails 4 wouldn't be strictly required, and I could have included +ActiveRecord+ in a standalone project, though this approach was just simpler and faster. 
+The test is implemented in a Rails 6 project, because of the requirement of using the +ActiveRecord+, Rails 6 wouldn't be strictly required, and I could have included +ActiveRecord+ in a standalone project, though this approach was just simpler and faster. 
 
 The class +VenueReport+ can be seen in +app/reports/venue_report.rb+, which contains also the declaration of +VenueRow+. The initialiser takes care of getting and converting the date ranges for the report, and loading into the report the payments to be reported.
 
