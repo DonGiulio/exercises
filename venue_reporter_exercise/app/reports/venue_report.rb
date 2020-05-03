@@ -13,11 +13,10 @@ class VenueReport
     # iterates through each payment found in the time interval generating the 
     # hash version of the report. Finally converts the hash to the Array of 
     # +VenueRow+s
-    hash_result = {}
-    @payments.each do |p|
-      key = "#{p.venue.name}"
+    obj = @payments.each_with_object({}) do |p, obj|
+      venue_name = "#{p.venue.name}"
 
-      venue = hash_result[key]
+      venue = obj[venue_name]
       if venue
         transactions = venue[:transactions] + 1
         value = venue[:value] + p.amount
@@ -25,10 +24,10 @@ class VenueReport
       transactions ||= 1
       value ||= p.amount
         
-      hash_result[key] = { transactions: transactions, value: value }
+      obj[venue_name] = { transactions: transactions, value: value }
     end
     
-    result = venue_rows hash_result
+    result = venue_rows obj
     result.sort_by! {|o| o.value}.reverse
   end
   
@@ -37,8 +36,10 @@ class VenueReport
   # Converts the hash report +{venue: {transactions: X, value: Y}}+ to the 
   # equivalent in +VenueRow+ version
   def venue_rows(hash)
-    hash.map do |key, values|
-      VenueRow.new(name: key, transactions: values[:transactions], value: values[:value])
+    hash.map do |venue_name, values|
+      VenueRow.new(name: venue_name, 
+        transactions: values[:transactions], 
+        value: values[:value])
     end
   end
   

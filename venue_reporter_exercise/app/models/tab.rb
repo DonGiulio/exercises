@@ -3,5 +3,4 @@ class Tab < ActiveRecord::Base
   
   has_many :user_tab
   has_many :users, through: :user_tab
-
 end
