@@ -67,13 +67,15 @@ The time at which you started this test has been recorded. You have 2 hours to c
 Steps to get the solution up and running:
 
 1. unzip the file and cd to the newly created directory
-2. run the 'bundle install --binstubs' command to install rspec and its executable bin
+2. run the `bundle install` command to install rspec and its executable bin
 3. to run the tests run the command: 
-    bin/rspec
+    `rspec`
 4. expected output: 
 
-        % rspec
-        .....
-        
-        Finished in 4.78 seconds (files took 0.17653 seconds to load)
-        5 examples, 0 failures
+```
+% rspec
+.....
+
+Finished in 0.48953 seconds (files took 0.04936 seconds to load)
+5 examples, 0 failures
+```

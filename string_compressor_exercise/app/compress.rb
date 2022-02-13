@@ -1,15 +1,15 @@
 class Compressor
-
   def compress(uncompressed)
-    return "" if uncompressed.nil? || uncompressed.empty?
+    return '' if uncompressed.nil? || uncompressed.empty?
+
     last = uncompressed[0]
     count = 0
-    result = uncompressed.split("").inject("") do |result, char|
+    result = uncompressed.split('').inject('') do |result, char|
       if char == last
         count += 1
       else
         result << do_compress(last, count)
-        last = char and count = 1
+        (last = char) && (count = 1)
       end
       result
     end
@@ -17,11 +17,11 @@ class Compressor
   end
 
   def decompress(compressed)
-    return "" unless compressed
-    
-    compressed.split(/(\d+)/).inject("") do |memo, char|
+    return '' unless compressed
+
+    compressed.split(/(\d+)/).inject('') do |memo, char|
       if numeric? char
-        memo << do_uncompress(memo[-1], (Integer(char)-1)) unless memo.empty?
+        memo << do_uncompress(memo[-1], (Integer(char) - 1)) unless memo.empty?
       else
         memo << char
       end
@@ -37,12 +37,12 @@ class Compressor
 
   def do_compress(char, count)
     return "#{char}#{count}" if count > 2
-    return char * count
+
+    char * count
   end
 
   # Your solution may or may not need this - feel free to delete it if you do not need it
   def numeric?(character)
-    0 == (character =~ /[0-9]/)
+    (character =~ /[0-9]/) == 0
   end
-
 end

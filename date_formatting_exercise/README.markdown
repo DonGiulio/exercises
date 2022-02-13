@@ -43,7 +43,7 @@ Additionally I used `guard` and `pry` to continuously run the tests and to debug
 Steps to get the solution up and running:
 
 1. unzip the file and cd to the newly created directory
-2. run the `bundle install --binstubs` command to install rspec and its executable bin
+2. run the `bundle install` command to install rspec and its executable bin
 3. to run the tests run the command: `bin/rspec`
 4. expected output: 
 

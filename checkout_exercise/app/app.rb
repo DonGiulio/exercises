@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './app/checkout'
 require './app/product'
 require './app/discounts/buy_one_get_one_free'
